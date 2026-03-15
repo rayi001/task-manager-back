@@ -1,27 +1,21 @@
 {
-  "version": 2,
+  "framework": null,
   "builds": [
     {
-      "src": "api/index.py",
+      "src": "task_manager/wsgi.py",
       "use": "@vercel/python",
-      "config": { 
-        "maxLambdaSize": "15mb", 
-        "runtime": "python3.12"
-      }
+      "config": { "maxLambdaSize":  "15mb", "runtime":  "python3.12" }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "api/index.py"
+      "dest": "task_manager/wsgi.py",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS, DELETE, PUT"
+      }
     }
   ],
-  "env": {
-    "DJANGO_SETTINGS_MODULE": "task_manager.settings"
-  },
-  "functions": {
-    "api/index.py": {
-      "runtime": "python3.12"
-    }
-  }
+  "buildCommand": "bash vercel-build.sh"
 }

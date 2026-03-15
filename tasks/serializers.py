@@ -39,3 +39,10 @@ class TaskSerializer(serializers.ModelSerializer):
                 f"Invalid status '{value}'. Must be one of: {valid_statuses}"
             )
         return value
+    
+    def validate_title(self, value):
+        if not value or len(value.strip()) < 1:
+            raise serializers.ValidationError("Title cannot be empty")
+        if len(value) > 200:
+            raise serializers.ValidationError("Title cannot exceed 200 characters")
+        return value

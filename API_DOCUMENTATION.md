@@ -223,6 +223,47 @@ Authorization: Bearer <access_token>
 **Request Body (PATCH):**
 ```json
 {
+    "title": "Updated title only"
+}
+```
+
+**Response (200 OK):**
+```json
+{
+    "id": 1,
+    "title": "Updated task title",
+    "description": "Updated description",
+    "status": "in_progress",
+    "created_at": "2026-03-15T06:38:00Z",
+    "updated_at": "2026-03-15T06:38:00Z"
+}
+```
+
+**Response (400 Bad Request):**
+```json
+{
+    "title": ["Title cannot be empty"]
+}
+```
+
+---
+
+### 9. Delete Task ✅
+**URL:** `PUT /api/tasks/<id>/` or `PATCH /api/tasks/<id>/`
+**Authentication:** Required
+
+**Request Body (PUT):**
+```json
+{
+    "title": "Updated task title",
+    "description": "Updated description",
+    "status": "in_progress"
+}
+```
+
+**Request Body (PATCH):**
+```json
+{
     "status": "completed"
 }
 ```
@@ -291,6 +332,32 @@ All endpoints have been tested and are working correctly:
 - ✅ Task Detail (200)
 - ✅ Task Update (200)
 - ✅ Task Delete (204)
+
+---
+
+## User Story 7 Implementation ✅
+
+### Changes Made:
+- ✅ Enhanced TaskSerializer with comprehensive field validation
+- ✅ Added title validation (empty check, max length)
+- ✅ Existing TaskDetailView supports PUT/PATCH operations
+- ✅ Full task updates (title, description, status)
+- ✅ Partial updates (individual fields)
+- ✅ Proper error handling for invalid data
+- ✅ User permission enforcement (only task owner can edit)
+
+### Features:
+- **PUT Endpoint**: `PUT /api/tasks/<id>/` for full updates
+- **PATCH Endpoint**: `PATCH /api/tasks/<id>/` for partial updates
+- **Field Validation**: Title (required, max 200 chars), Status (choices)
+- **Error Handling**: Clear validation error messages
+- **Authentication**: Required for all editing operations
+
+### Validation Rules:
+- Title: Required, max 200 characters, cannot be empty
+- Status: Must be one of ['todo', 'in_progress', 'completed']
+- Description: Optional, can be blank
+- User Isolation: Users can only edit their own tasks
 
 ---
 

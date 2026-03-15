@@ -59,6 +59,32 @@ class TaskListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def update_task_status(request, pk):
+    """Update only the status of a specific task"""
+    try:
+        task = Task.objects.get(pk=pk, user=request.user)
+    except Task.DoesNotExist:
+        return Response({'error': 'Task not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+    new_status = request.data.get('status')
+    if not new_status:
+        return Response({'error': 'Status field is required'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Validate status
+    valid_statuses = [choice[0] for choice in Task.STATUS_CHOICES]
+    if new_status not in valid_statuses:
+        return Response({
+            'error': f'Invalid status. Must be one of: {valid_statuses}'
+        }, status=status.HTTP_400_BAD_REQUEST)
+    
+    task.status = new_status
+    task.save()
+    
+    serializer = TaskSerializer(task)
+    return Response(serializer.data)
+
 class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = TaskSerializer

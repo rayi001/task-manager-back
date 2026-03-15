@@ -175,6 +175,38 @@ Authorization: Bearer <access_token>
 
 ---
 
+### 7. Update Task Status ✅
+**URL:** `PATCH /api/tasks/<id>/status/`
+**Authentication:** Required
+
+**Request Body:**
+```json
+{
+    "status": "in_progress"
+}
+```
+
+**Response (200 OK):**
+```json
+{
+    "id": 1,
+    "title": "Complete project setup",
+    "description": "Set up Django project with authentication",
+    "status": "in_progress",
+    "created_at": "2026-03-15T06:38:00Z",
+    "updated_at": "2026-03-15T06:38:00Z"
+}
+```
+
+**Response (400 Bad Request):**
+```json
+{
+    "error": "Invalid status 'invalid_status'. Must be one of: ['todo', 'in_progress', 'completed']"
+}
+```
+
+---
+
 ### 8. Update Task ✅
 **URL:** `PUT /api/tasks/<id>/` or `PATCH /api/tasks/<id>/`
 **Authentication:** Required
@@ -259,6 +291,29 @@ All endpoints have been tested and are working correctly:
 - ✅ Task Detail (200)
 - ✅ Task Update (200)
 - ✅ Task Delete (204)
+
+---
+
+## User Story 6 Implementation ✅
+
+### Changes Made:
+- ✅ Added status validation in TaskSerializer
+- ✅ Created dedicated status update endpoint: `PATCH /api/tasks/<id>/status/`
+- ✅ Enhanced existing PATCH endpoint for status updates
+- ✅ Proper error handling for invalid statuses
+- ✅ Status choices: 'todo', 'in_progress', 'completed'
+
+### Features:
+- **Dedicated Status Endpoint**: `PATCH /api/tasks/<id>/status/`
+- **General Update Support**: Status can also be updated via `PATCH /api/tasks/<id>/`
+- **Validation**: Only valid statuses accepted
+- **Error Handling**: Clear error messages for invalid status values
+- **Authentication**: Required for all status updates
+
+### Status Options:
+- `todo` - Task not started
+- `in_progress` - Task currently being worked on
+- `completed` - Task finished
 
 ---
 

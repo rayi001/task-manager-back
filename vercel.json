@@ -23,6 +23,5 @@
     "api/index.py": {
       "runtime": "python3.12"
     }
-  },
-  "buildCommand": "bash build.sh"
+  }
 }

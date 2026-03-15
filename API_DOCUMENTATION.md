@@ -249,46 +249,56 @@ Authorization: Bearer <access_token>
 ---
 
 ### 9. Delete Task ✅
-**URL:** `PUT /api/tasks/<id>/` or `PATCH /api/tasks/<id>/`
-**Authentication:** Required
-
-**Request Body (PUT):**
-```json
-{
-    "title": "Updated task title",
-    "description": "Updated description",
-    "status": "in_progress"
-}
-```
-
-**Request Body (PATCH):**
-```json
-{
-    "status": "completed"
-}
-```
-
-**Response (200 OK):**
-```json
-{
-    "id": 1,
-    "title": "Updated task title",
-    "description": "Updated description",
-    "status": "completed",
-    "created_at": "2026-03-15T06:38:00Z",
-    "updated_at": "2026-03-15T06:38:00Z"
-}
-```
-
----
-
-### 9. Delete Task ✅
 **URL:** `DELETE /api/tasks/<id>/`
 **Authentication:** Required
 
-**Response (204 No Content)**
+**Response (204 No Content):**
+```
+(no response body)
+```
+
+**Response (404 Not Found):**
+```json
+{
+    "detail": "Not found."
+}
+```
+
+**Response (401 Unauthorized):**
+```json
+{
+    "detail": "Authentication credentials were not provided."
+}
+```
 
 ---
+
+## User Story 8 Implementation ✅
+
+### Changes Made:
+- ✅ TaskDetailView inherits from RetrieveUpdateDestroyAPIView
+- ✅ DELETE endpoint automatically provided by Django REST Framework
+- ✅ User permission enforcement (only task owner can delete)
+- ✅ Proper HTTP status codes (204 for success, 404 for not found)
+- ✅ Authentication required for deletion operations
+
+### Features:
+- **DELETE Endpoint**: `DELETE /api/tasks/<id>/` for removing tasks
+- **User Isolation**: Users can only delete their own tasks
+- **Error Handling**: Proper 404/401 responses for invalid requests
+- **No Response Body**: Returns 204 No Content on successful deletion
+- **Authentication**: Required for all deletion operations
+
+### Edge Cases Tested:
+- ✅ Delete non-existent task (404)
+- ✅ Delete without authentication (401)
+- ✅ Delete existing task (204)
+- ✅ Task count decreases correctly
+- ✅ Deleted task returns 404 when accessed
+
+---
+
+## Testing Notes
 
 ## Status Options
 - `todo` - Task not started

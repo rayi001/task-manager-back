@@ -46,10 +46,25 @@ def health_check(request):
         'version': '1.0.0'
     })
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def root_view(request):
+    return Response({
+        'message': 'Task Manager API',
+        'version': '1.0.0',
+        'endpoints': {
+            'register': '/api/register/',
+            'login': '/api/login/',
+            'profile': '/api/profile/',
+            'token_refresh': '/api/token/refresh/',
+            'tasks': '/api/'
+        }
+    })
+
 urlpatterns = [
     path('health/', health_check, name='health_check'),
     path('api/', api_root, name='api_root'),
-    path('', api_root, name='api_root_fallback'),  # Add fallback for root path
+    path('', root_view, name='root_view'),  # Dedicated root view
     path('admin/', admin.site.urls),
     
     # Authentication URLs

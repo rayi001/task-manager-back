@@ -177,6 +177,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True  # Temporary: allow all origins
 
 # Allow all origins in development (you can restrict this in production)
 if DEBUG:

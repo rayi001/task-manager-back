@@ -49,6 +49,7 @@ def health_check(request):
 urlpatterns = [
     path('health/', health_check, name='health_check'),
     path('api/', api_root, name='api_root'),
+    path('', api_root, name='api_root_fallback'),  # Add fallback for root path
     path('admin/', admin.site.urls),
     
     # Authentication URLs

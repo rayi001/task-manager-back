@@ -173,7 +173,10 @@ CORS_ALLOWED_ORIGINS = [
     "https://localhost:3000",
     "http://127.0.0.1:3000",
     "https://127.0.0.1:3000",
+    "https://task-manager-front-iota.vercel.app",
 ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 # Allow all origins in development (you can restrict this in production)
 if DEBUG:

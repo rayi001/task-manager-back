@@ -179,6 +179,13 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True  # Temporary: allow all origins
 
+# Additional CORS headers for debugging
+CORS_ALLOW_HEADERS = [
+    'Content-Type',
+    'Authorization',
+    'X-Requested-With',
+]
+
 # Allow all origins in development (you can restrict this in production)
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True

@@ -98,12 +98,18 @@ if config('DATABASE_URL', default=''):
         'default': dj_database_url.parse(config('DATABASE_URL'))
     }
 else:
+    # Fallback for local development
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+
+# Ensure SQLite directory exists for local development
+import os
+if not config('DATABASE_URL', default=''):
+    os.makedirs(BASE_DIR, exist_ok=True)
 
 
 # Password validation

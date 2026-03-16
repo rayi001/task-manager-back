@@ -18,7 +18,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'task_manager.settings')
 if os.environ.get('VERCEL') or os.environ.get('AWS_LAMBDA_FUNCTION_NAME'):
     try:
         execute_from_command_line(['manage.py', 'migrate', '--noinput'])
+        print("Migrations completed successfully")
     except Exception as e:
         print(f"Migration error: {e}")
+        # Continue anyway - database might already be set up
 
 application = get_wsgi_application()

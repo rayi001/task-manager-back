@@ -93,10 +93,15 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 
 import dj_database_url
 
-if config('DATABASE_URL', default=''):
+database_url = config('DATABASE_URL', default='')
+print(f"DATABASE_URL found: {bool(database_url)}")
+print(f"DATABASE_URL length: {len(database_url)}")
+
+if database_url:
     DATABASES = {
-        'default': dj_database_url.parse(config('DATABASE_URL'))
+        'default': dj_database_url.parse(database_url)
     }
+    print("Using Neon database")
 else:
     # Fallback for local development
     DATABASES = {
@@ -105,10 +110,11 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+    print("Using SQLite fallback")
 
 # Ensure SQLite directory exists for local development
 import os
-if not config('DATABASE_URL', default=''):
+if not database_url:
     os.makedirs(BASE_DIR, exist_ok=True)
 
 

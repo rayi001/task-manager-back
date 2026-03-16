@@ -15,10 +15,7 @@
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS, DELETE, PUT"
       }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "task_manager/wsgi.py"
     }
-  ]
+  ],
+  "buildCommand": "bash vercel-build.sh"
 }

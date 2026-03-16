@@ -10,18 +10,31 @@ from tasks.serializers import UserRegistrationSerializer, UserProfileSerializer
 @permission_classes([AllowAny])
 def register(request):
     try:
+        print(f"Registration request data: {request.data}")
         serializer = UserRegistrationSerializer(data=request.data)
         if serializer.is_valid():
+            print("Serializer is valid, creating user...")
             user = serializer.save()
+            print(f"User created: {user.username}")
             refresh = RefreshToken.for_user(user)
+            print("JWT tokens generated")
             return Response({
                 'user': UserProfileSerializer(user).data,
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
             }, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            print(f"Serializer errors: {serializer.errors}")
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        return Response({'error': f'Registration failed: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        print(f"Registration error: {str(e)}")
+        print(f"Error type: {type(e)}")
+        import traceback
+        print(f"Traceback: {traceback.format_exc()}")
+        return Response({
+            'error': f'Registration failed: {str(e)}',
+            'error_type': str(type(e).__name__)
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])

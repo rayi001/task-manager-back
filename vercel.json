@@ -13,5 +13,5 @@
       "dest": "task_manager/wsgi.py"
     }
   ],
-  "buildCommand": "python manage.py migrate"
+  "buildCommand": "python migrate.py && python manage.py collectstatic --noinput"
 }

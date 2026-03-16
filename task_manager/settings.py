@@ -179,17 +179,18 @@ SIMPLE_JWT = {
     'USER_ID_CLAIM': 'user_id',
 }
 
+from corsheaders.defaults import default_headers
+
 # CORS Settings
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://127.0.0.1:3000",
     "https://task-manager-front-iota.vercel.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_ALL_ORIGINS = True  # Temporary: allow all origins
+CORS_ALLOW_PRIVATE_NETWORK = True
+# CORS_ALLOW_ALL_ORIGINS = True  # Temporary: allow all origins
 
 # Additional CORS headers for debugging
 # CORS_ALLOW_HEADERS = [
@@ -197,7 +198,6 @@ CORS_ALLOW_ALL_ORIGINS = True  # Temporary: allow all origins
 #     'Authorization',
 #     'X-Requested-With',
 # ]
-from corsheaders.defaults import default_headers
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
     "authorization",
@@ -211,20 +211,6 @@ CORS_ALLOW_METHODS = [
     "POST",
     "PUT",
 ]
-
-# Allow all origins in development (you can restrict this in production)
-if DEBUG:
-    CORS_ALLOW_ALL_ORIGINS = True
-    CORS_ALLOW_CREDENTIALS = True
-else:
-    # In production, you should specify your frontend domain
-    CORS_ALLOWED_ORIGINS = [
-        "http://localhost:3000",
-        "https://localhost:3000",
-        "http://127.0.0.1:3000",
-        "https://127.0.0.1:3000",
-        "https://task-manager-front-iota.vercel.app",
-    ]
 
 # Production Security Settings
 if not DEBUG:

@@ -12,5 +12,6 @@
       "src": "/(.*)",
       "dest": "task_manager/wsgi.py"
     }
-  ]
+  ],
+  "buildCommand": "python manage.py migrate"
 }

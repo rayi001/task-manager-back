@@ -37,7 +37,17 @@ def api_root(request):
         }
     })
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def health_check(request):
+    return Response({
+        'status': 'healthy',
+        'message': 'Task Manager API is running',
+        'version': '1.0.0'
+    })
+
 urlpatterns = [
+    path('health/', health_check, name='health_check'),
     path('', api_root, name='api_root'),
     path('admin/', admin.site.urls),
     

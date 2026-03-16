@@ -12,8 +12,8 @@ django.setup()
 # Run migrations
 try:
     execute_from_command_line(['manage.py', 'migrate', '--noinput'])
-    print("✅ Migrations completed successfully!")
+    print("Migrations completed successfully!")
 except Exception as e:
-    print(f"❌ Migration error: {e}")
+    print(f"Migration error: {e}")
     import traceback
     print(traceback.format_exc())

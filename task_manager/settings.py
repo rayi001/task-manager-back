@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 
 import dj_database_url
 
-database_url = config('DATABASE_URL', default='')
+database_url = config('tm_DATABASE_URL', default='')
 print(f"DATABASE_URL found: {bool(database_url)}")
 print(f"DATABASE_URL length: {len(database_url)}")
 

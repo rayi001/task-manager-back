@@ -102,15 +102,15 @@ if database_url:
         'default': dj_database_url.parse(database_url)
     }
     print("Using Neon database")
-else:
-    # Fallback for local development
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-    print("Using SQLite fallback")
+# else:
+#     # Fallback for local development
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+#     print("Using SQLite fallback")
 
 # Ensure SQLite directory exists for local development
 import os

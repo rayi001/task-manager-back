@@ -26,7 +26,7 @@ jobs:
 
     env:
       # CI uses local Postgres service, not Neon
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+      tm_DATABASE_URL: ${{ secrets.TM_DATABASE_URL }}
       
     steps:
       - name: Checkout repository
